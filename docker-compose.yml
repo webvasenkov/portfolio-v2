@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  api:
+    build: ./backend
+    container_name: api
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/app
+  web:
+    build: ./frontend
+    container_name: web
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/app
+  db:
+    image: 'postgres'
+    container_name: 'db'
+    env_file: ./backend/.env
+    ports:
+      - 5433:5432
+    volumes: 
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data:
