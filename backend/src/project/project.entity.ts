@@ -7,13 +7,16 @@ import {
 } from 'typeorm';
 import { ToolEntity } from '../tool/tool.entity';
 
-@Entity({ name: 'Project' })
+@Entity({ name: 'project' })
 export class ProjectEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
+  
+  @Column()
+  link: string;
 
   @Column()
   desc: string;

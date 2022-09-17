@@ -3,15 +3,17 @@ import { ConfigModule } from '@nestjs/config';
 import { ProjectModule } from './project/project.module';
 import { ToolModule } from './tool/tool.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { options as configOptions } from './config';
-import { options as typeormOptions } from './typeorm.config';
+import { configModuleOptions } from './config';
+import { dataSourceOptions } from './typeorm.config';
+import { SocialModule } from './social/social.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(configOptions),
-    TypeOrmModule.forRoot(typeormOptions),
+    ConfigModule.forRoot(configModuleOptions),
+    TypeOrmModule.forRoot(dataSourceOptions),
     ProjectModule,
     ToolModule,
+    SocialModule,
   ],
 })
 export class AppModule {}
