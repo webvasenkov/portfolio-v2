@@ -6,7 +6,9 @@ import {
   Put,
   Param,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
+import { Public } from 'src/decorators/public.decorator';
 import { CreateToolDto } from './dto/createToolDto';
 import { UpdateToolDto } from './dto/updateToolDto';
 import { ToolEntity } from './tool.entity';
@@ -24,6 +26,7 @@ export class ToolController {
     return { tool };
   }
 
+  @Public()
   @Get('tools')
   async findAll(): Promise<{ tools: ToolEntity[] }> {
     const tools = await this.toolService.findAll();
@@ -32,10 +35,17 @@ export class ToolController {
 
   @Put('tool/:id')
   async update(
-    @Param('id', ParseIntPipe) idTool: number,
+    @Param('id', ParseIntPipe) toolId: number,
     @Body() updateToolDto: UpdateToolDto,
   ): Promise<{ tool: ToolEntity }> {
-    const tool = await this.toolService.update(idTool, updateToolDto);
+    console.log(toolId)
+    const tool = await this.toolService.update(toolId, updateToolDto);
     return { tool };
+  }
+
+  @Delete('tool/:id')
+  async delete(@Param('id', ParseIntPipe) toolId: number): Promise<{result: string}> {
+    await this.toolService.delete(toolId);
+    return {result: 'success'}
   }
 }

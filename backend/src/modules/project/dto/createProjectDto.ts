@@ -13,7 +13,7 @@ export class CreateProjectDto {
   @IsString()
   desc: string;
 
-  @IsNumber({}, {each: true})
   @IsNotEmpty()
+  @IsNumber({}, {each: true})
   tools: number[];
 }
