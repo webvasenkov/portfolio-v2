@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { SocialService } from './social.service';
 import { SocialController } from './social.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SocialEntity } from './social.entity';
+import { SocialEntity } from './entities/social.entity';
 import { appGuard } from 'src/lib/helper';
 
 @Module({

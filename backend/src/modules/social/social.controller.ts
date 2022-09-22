@@ -9,9 +9,9 @@ import {
   Delete,
 } from '@nestjs/common';
 import { Public } from 'src/decorators/public.decorator';
-import { CreateSocialDto } from './dto/createSocialDto';
-import { UpdateSocialDto } from './dto/updateSocialDto';
-import { SocialEntity } from './social.entity';
+import { CreateSocialDto } from './dto/create-social-dto';
+import { UpdateSocialDto } from './dto/update-social-dto';
+import { SocialEntity } from './entities/social.entity';
 import { SocialService } from './social.service';
 
 @Controller()

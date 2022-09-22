@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsString,  IsNumber, IsOptional } from 'class-validator';
 
 export class UpdateProjectDto {
@@ -15,5 +16,6 @@ export class UpdateProjectDto {
 
   @IsOptional()
   @IsNumber({}, {each: true})
+  @Type(() => Number)
   tools: number[];
 }

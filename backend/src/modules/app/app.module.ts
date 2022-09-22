@@ -6,6 +6,8 @@ import { ToolModule } from '../tool/tool.module';
 import { SocialModule } from '../social/social.module';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
+import { MailModule } from '../mail/mail.module';
+import { FileModule } from '../file/file.module';
 import { configModuleOptions } from 'src/config';
 import { dataSourceOptions } from 'src/typeorm.config';
 
@@ -18,6 +20,8 @@ import { dataSourceOptions } from 'src/typeorm.config';
     SocialModule,
     UserModule,
     AuthModule,
+    MailModule,
+    FileModule
   ],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateProjectDto {
@@ -14,6 +15,7 @@ export class CreateProjectDto {
   desc: string;
 
   @IsNotEmpty()
-  @IsNumber({}, {each: true})
+  @IsNumber({}, { each: true })
+  @Type(() => Number)
   tools: number[];
 }

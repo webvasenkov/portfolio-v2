@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ToolController } from './tool.controller';
 import { ToolService } from './tool.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ToolEntity } from './tool.entity';
+import { ToolEntity } from './entities/tool.entity';
 import { appGuard } from 'src/lib/helper';
 
 @Module({

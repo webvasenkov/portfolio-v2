@@ -9,9 +9,9 @@ import {
   Delete,
 } from '@nestjs/common';
 import { Public } from 'src/decorators/public.decorator';
-import { CreateToolDto } from './dto/createToolDto';
-import { UpdateToolDto } from './dto/updateToolDto';
-import { ToolEntity } from './tool.entity';
+import { CreateToolDto } from './dto/create-tool.dto';
+import { UpdateToolDto } from './dto/update-tool.dto';
+import { ToolEntity } from './entities/tool.entity';
 import { ToolService } from './tool.service';
 
 @Controller()
@@ -38,7 +38,6 @@ export class ToolController {
     @Param('id', ParseIntPipe) toolId: number,
     @Body() updateToolDto: UpdateToolDto,
   ): Promise<{ tool: ToolEntity }> {
-    console.log(toolId)
     const tool = await this.toolService.update(toolId, updateToolDto);
     return { tool };
   }

@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
-import { RegisterUserDto } from '../user/dto/registerUserDto';
-import { UserEntity } from '../user/user.entity';
+import { RegisterUserDto } from '../user/dto/register-user.dto';
+import { UserEntity } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -36,9 +36,9 @@ export class AuthService {
 
     const user = new UserEntity();
     registerUserDto.password = await hash(registerUserDto.password, 10);
-    const { passwordConfirm, ...registerUserDtoWithoutPasswordConfirm } =
+    const { passwordConfirm, ...registerUserDtoWithoutConfirmPassowrd } =
       registerUserDto;
-    return this.userService.save(user, registerUserDtoWithoutPasswordConfirm);
+    return this.userService.save(user, registerUserDtoWithoutConfirmPassowrd);
   }
 
   login(user: Omit<UserEntity, 'password'>): { accessToken: string } {

@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateSocialDto } from './dto/createSocialDto';
-import { UpdateSocialDto } from './dto/updateSocialDto';
-import { SocialEntity } from './social.entity';
+import { CreateSocialDto } from './dto/create-social-dto';
+import { UpdateSocialDto } from './dto/update-social-dto';
+import { SocialEntity } from './entities/social.entity';
 
 @Injectable()
 export class SocialService {
