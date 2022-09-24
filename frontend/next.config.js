@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const securityHeaders = [];
+
 const nextConfig = {
   webpack(config) {
     config.module.rules.push({

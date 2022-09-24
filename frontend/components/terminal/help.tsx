@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import Text from '../../text';
+import Text from 'components/text';
 
 function Help() {
   const commnads = [
@@ -9,7 +9,6 @@ function Help() {
     { id: uuidv4(), name: 'tools', desc: 'print my tools' },
     { id: uuidv4(), name: 'social', desc: 'print my social networks' },
     { id: uuidv4(), name: 'cv', desc: 'download my CV' },
-    { id: uuidv4(), name: 'exit', desc: 'close this page' },
     {
       id: uuidv4(),
       name: 'message',

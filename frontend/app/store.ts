@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { projectsApi } from '../features/projects/projectsApi';
+import { portfolioApi } from 'features/portfolio/portfolioApi';
+import { terminalSlice } from 'features/terminal/terminalSlice';
 
 export const store = configureStore({
-  reducer: { [projectsApi.reducerPath]: projectsApi.reducer },
+  reducer: {
+    [portfolioApi.reducerPath]: portfolioApi.reducer,
+    [terminalSlice.name]: terminalSlice.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(projectsApi.middleware),
+    getDefaultMiddleware().concat(portfolioApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

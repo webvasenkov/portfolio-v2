@@ -3,15 +3,28 @@ export interface ICommand {
   name: string;
 }
 
-export interface ITag {
-  _id: string,
-  name: string,
+export interface ITool {
+  id: string;
+  name: string;
 }
 
 export interface IProject {
-  _id: string;
-  imgUrl: string;
+  id: string;
+  img: string;
   link: string;
-  tags: ITag[];
-  title: string;
+  tools: ITool[];
+  name: string;
+  desc: string;
+}
+
+export interface ISocial {
+  id: string;
+  name: string;
+  link: string;
+}
+
+export interface ITerminalState {
+  history: ICommand[];
+  commands: ICommand[];
+  isLoadingData: boolean;
 }

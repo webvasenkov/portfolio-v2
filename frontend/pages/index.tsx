@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Terminal from '../components/home/terminal/terminal';
-import RockIcon from '../public/icons/rock.svg';
+import Terminal from 'components/terminal/terminal';
+import RockIcon from 'public/icons/rock.svg';
 
 function Home() {
   return (

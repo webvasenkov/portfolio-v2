@@ -1,4 +1,4 @@
-import SunIcon from '../public/icons/sun.svg';
+import SunIcon from 'public/icons/sun.svg';
 
 function Header() {
   return (

@@ -1,39 +1,56 @@
-import { ChangeEvent, KeyboardEvent, useState, useRef, useEffect } from 'react';
-import { ICommand } from '../../../app/types';
-import { processCurrentCommand } from '../../../app/utils';
-import { v4 as uuidv4 } from 'uuid';
-import ArrowIcon from '../../../public/icons/arrow.svg';
+import { ChangeEvent, KeyboardEvent, useRef, useEffect, useState } from 'react';
+import ArrowIcon from 'public/icons/arrow.svg';
 import TextareaAutosize from 'react-textarea-autosize';
 import Output from './output';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { setIsLoadingData, addCommand } from 'features/terminal/terminalSlice';
+import { parseMessage } from 'app/utils';
 
 function Terminal() {
+  const disptach = useAppDispatch();
+  const { isLoadingData, commands, history } = useAppSelector(
+    (state) => state.terminal
+  );
   const [currentCommand, setCurrentCommand] = useState('');
-  const [commands, setCommands] = useState<ICommand[]>([]);
+  const [historyIdx, setHistoryIdx] = useState(history.length);
   const terminalRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function handleOnPressCommand(e: KeyboardEvent<HTMLTextAreaElement>) {
+  function handleCommand(e: KeyboardEvent<HTMLTextAreaElement>) {
     if (e.code === 'Enter') {
-      const id = uuidv4();
       e.preventDefault();
-
-      setCommands((prev) => [
-        ...prev,
-        {
-          id,
-          name: processCurrentCommand(currentCommand),
-        },
-      ]);
-
+      disptach(addCommand(currentCommand));
       setCurrentCommand('');
 
-      if (currentCommand == 'clear') {
-        setCommands([]);
+      if (currentCommand == 'cv') {
+        window.open('/doc/CV.pdf', '_blank');
+      }
+
+      if (currentCommand.split(' ')[0] == 'message') {
+        const messagePayload = parseMessage(currentCommand);
       }
     }
   }
 
-  function handleOnChangeCommand(e: ChangeEvent<HTMLTextAreaElement>) {
+  // show prev command
+  function handleUpCommand(e: KeyboardEvent<HTMLTextAreaElement>) {
+    if (history.length) {
+      if (e.code === 'ArrowUp') {
+        const newHistoryIdx = historyIdx > 0 ? historyIdx - 1 : historyIdx;
+        setCurrentCommand(history[newHistoryIdx].name);
+        setHistoryIdx(newHistoryIdx);
+      }
+
+      if (e.code === 'ArrowDown') {
+        const newHistoryIdx =
+          historyIdx < history.length ? historyIdx + 1 : historyIdx;
+        setCurrentCommand(history[newHistoryIdx]?.name || '');
+        setHistoryIdx(newHistoryIdx);
+      }
+    }
+  }
+
+  function handleChangeCommand(e: ChangeEvent<HTMLTextAreaElement>) {
     setCurrentCommand(e.target.value);
   }
 
@@ -44,13 +61,19 @@ function Terminal() {
 
   // scroll down if type command
   useEffect(() => {
-    if (commands.length) {
-      terminalRef.current?.scrollTo({
+    if (isLoadingData || commands.length) {
+      terminalRef?.current?.scrollTo({
         top: terminalRef.current.scrollHeight,
         behavior: 'smooth',
       });
+
+      disptach(setIsLoadingData(false));
     }
-  }, [commands]);
+  }, [isLoadingData, commands]);
+
+  useEffect(() => {
+    setHistoryIdx(history.length);
+  }, [history]);
 
   return (
     <>
@@ -71,9 +94,10 @@ function Terminal() {
             <ArrowIcon />
             <TextareaAutosize
               className='w-full bg-transparent focus:outline-none resize-none'
-              onChange={handleOnChangeCommand}
+              onChange={handleChangeCommand}
               value={currentCommand}
-              onKeyPress={handleOnPressCommand}
+              onKeyPress={handleCommand}
+              onKeyUp={handleUpCommand}
               ref={textareaRef}
             />
           </div>

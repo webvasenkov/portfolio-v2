@@ -7,7 +7,7 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - 3001:3001
+      - '3001:3001'
   web:
     build: ./frontend
     container_name: web
@@ -15,12 +15,25 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - 3000:3000
+      - '3000:3000'
   db:
     image: 'postgres:alpine3.16'
     container_name: 'db'
     env_file: ./backend/.env
-    volumes: 
+    volumes:
       - db_data:/var/lib/postgresql/data
+  # webserver:
+  #   image: caddy:2.5.2-alpine
+  #   container_name: 'webserver'
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   volumes:
+  #     - ./webserver/Caddyfile:/etc/caddy/Caddyfile
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+
 volumes:
   db_data:
+  # caddy_data:
+  # caddy_config:
