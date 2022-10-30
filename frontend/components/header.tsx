@@ -43,7 +43,7 @@ function Header() {
 
   return (
     <div className='relative mt-10 px-20 w-full'>
-      <span className='block font-display uppercase font-bold text-xl xl:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red to-blue animate-gradient w-max mx-auto bg-[length:200%_200%] cursor-default'>
+      <span className='block font-display uppercase font-bold text-2xl xl:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red to-blue animate-gradient w-max mx-auto bg-[length:200%_200%] cursor-default'>
         webvasenkov
       </span>
       <div className='none absolute right-10 xl:right-20 top-1/2 -translate-y-1/2 flex gap-x-5 font-medium'>
