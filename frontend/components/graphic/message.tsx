@@ -61,7 +61,7 @@ function Message() {
         <div className='relative w-[100%] xl:w-[calc(50%-2rem)]'>
           <label htmlFor='email' />
           <input
-            className='w-full px-6 py-4 rounded-md bg-white/80 text-[#202020] font-light placeholder:text-white placeholder:font-light placeholder:text-[#202020]/60 outline-none focus:bg-white transition'
+            className='w-full px-6 py-4 border border-dark-gray/60 dark:border-none rounded-md bg-white/80 text-[#202020] font-light placeholder:text-white placeholder:font-light placeholder:text-[#202020]/60 outline-none focus:bg-white transition'
             {...register('email')}
             id='email'
             type='text'
@@ -72,7 +72,7 @@ function Message() {
         <div className='relative w-[100%] xl:w-[50%]'>
           <label htmlFor='name' />
           <input
-            className='w-full px-6 py-4 rounded-md bg-white/80 text-[#202020] font-light placeholder:text-white placeholder:font-light placeholder:text-[#202020]/60 outline-none focus:bg-white transition'
+            className='w-full px-6 py-4 border border-dark-gray/60 dark:border-none rounded-md bg-white/80 text-[#202020] font-light placeholder:text-white placeholder:font-light placeholder:text-[#202020]/60 outline-none focus:bg-white transition'
             {...register('name')}
             name='name'
             id='name'
@@ -84,7 +84,7 @@ function Message() {
         <div className='relative w-full h-48 xl:h-96'>
           <label htmlFor='text' />
           <textarea
-            className='w-full h-full px-6 py-4 rounded-md bg-white/80 text-[#202020] font-light placeholder:text-white placeholder:font-light placeholder:text-[#202020]/60 outline-none resize-none focus:bg-white transition'
+            className='w-full h-full px-6 py-4 border border-dark-gray/60 dark:border-none rounded-md bg-white/80 text-[#202020] font-light placeholder:text-white placeholder:font-light placeholder:text-[#202020]/60 outline-none resize-none focus:bg-white transition'
             {...register('text')}
             name='text'
             id='text'
