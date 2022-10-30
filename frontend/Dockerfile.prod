@@ -25,6 +25,8 @@ FROM node:16.17.0-alpine3.16
 
 WORKDIR /app
 
+COPY --from=deps /app/node_modules ./node_modules
+
 COPY --from=builder /app/.next ./.next
 
 COPY --from=builder /app/public ./public
