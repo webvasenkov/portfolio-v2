@@ -14,10 +14,8 @@ function Message({ fullCommand }: Props) {
     useSendMessageMutation();
 
   useEffect(() => {
-    if (payload?.email && payload?.name && payload?.text) {
-      sendMessage(payload);
-    }
-  }, [sendMessage, payload]);
+    sendMessage(payload);
+  }, []);
 
   if (!payload?.email || !payload?.name || !payload?.text) {
     return (
