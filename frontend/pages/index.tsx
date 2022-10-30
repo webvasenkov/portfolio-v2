@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import Terminal from 'components/terminal/terminal';
+import Graphic from 'components/graphic/graphic';
 import RockIcon from 'public/icons/rock.svg';
+import { useAppSelector } from 'app/hooks';
 
 function Home() {
+  const { isTerminal } = useAppSelector((state) => state.terminal);
+
   return (
     <>
       <Head>
@@ -11,16 +15,15 @@ function Home() {
           name='description'
           content='Hi, my name is Denis & I’m frontend enthusiast'
         />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.svg' />
       </Head>
-      <h1 className='relative mt-8 text-2xl mx-auto w-max'>
-        <span className='absolute -translate-x-full top-2/4 -translate-y-2/4 -left-2'>
+      <h1 className='font-light px-4 relative mt-8 text-base xl:text-2xl mx-auto max-w-max sm:pl-14 xl:pl-16 text-center'>
+        <span className='hidden sm:block absolute -translate-x-full top-1/2 -translate-y-1/2 left-14 scale-75 xl:scale-100'>
           <RockIcon />
         </span>
-        Hi, my name is Denis <span className='text-pure'>&</span> I’m frontend
-        enthusiast
+        Hi, my name is Denis & I’m frontend enthusiast
       </h1>
-      <Terminal />
+      {isTerminal ? <Terminal /> : <Graphic />}
     </>
   );
 }

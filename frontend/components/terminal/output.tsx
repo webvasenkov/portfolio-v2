@@ -7,13 +7,14 @@ import Projects from './projects';
 import NotFound from './notFound';
 import Tools from './tools';
 import Socials from './social';
+import Message from './message';
 
 type Props = {
   commands: ICommand[];
 };
 
 function Output({ commands }: Props) {
-  function result(command: string) {
+  function result(command: string, fullCommand: ICommand) {
     switch (command) {
       case 'help':
         return <Help />;
@@ -21,10 +22,12 @@ function Output({ commands }: Props) {
         return <Projects />;
       case 'tools':
         return <Tools />;
-      case 'socials':
+      case 'social':
         return <Socials />;
       case 'cv':
         return <></>;
+      case 'message':
+        return <Message fullCommand={fullCommand}/>;
       default:
         return <NotFound command={command} />;
     }
@@ -39,7 +42,7 @@ function Output({ commands }: Props) {
           </div>
           <div className='w-full flex flex-col'>
             <Text text={command.name} />
-            <div className='py-4'>{result(command.name)}</div>
+            <div className='py-4'>{result(command.name.split(' ')[0], command)}</div>
           </div>
         </li>
       ))}

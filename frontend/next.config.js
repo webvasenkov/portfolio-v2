@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
-const securityHeaders = [];
 
 const nextConfig = {
+  output: 'standalone',
+  images: {
+    domains: ['storage.webvasenkov.com'],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

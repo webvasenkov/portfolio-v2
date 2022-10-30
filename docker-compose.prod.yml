@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/app
+    ports:
+      - '3001:3001'
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile.prod
+    container_name: frontend
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - 'storage'
+      - 'db'
+  db:
+    image: 'postgres:alpine3.16'
+    container_name: db
+    env_file: ./backend/.env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+  storage:
+    image: minio/minio:RELEASE.2022-10-02T19-29-29Z
+    container_name: storage
+    env_file: ./backend/.env
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    ports:
+      - '9001:9001'
+      - '9000:9000'
+  webserver:
+    image: caddy:2.5.2-alpine
+    container_name: 'webserver'
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./webserver/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  db_data:
+  minio_data:
+  caddy_data:
+  caddy_config:

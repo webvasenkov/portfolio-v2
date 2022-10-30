@@ -1,15 +1,3 @@
-// --- terminal utils ---
-export function processCurrentCommand(currentCommand: string) {
-  if (currentCommand.length >= 100) {
-    return currentCommand
-      .split('')
-      .map((l, idx) => (idx && !(idx % 99) ? l + '\n' : l))
-      .join('');
-  }
-
-  return currentCommand;
-}
-
 export function parseMessage(command: string) {
   const args = command.replace(/“|”|'/g, '"').match(/(?:[^\s"]+|"[^"]*")+/g);
 

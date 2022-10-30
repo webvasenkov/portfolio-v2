@@ -41,8 +41,8 @@ export class SocialService {
     socialId: number,
     updateSocialDto: UpdateSocialDto,
   ): Promise<SocialEntity> {
-    const social = await this.findOne(socialId);
     await this.checkNameExists(updateSocialDto.name, socialId);
+    const social = await this.findOne(socialId);
     return this.save(social, updateSocialDto);
   }
 

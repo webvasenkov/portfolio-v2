@@ -25,6 +25,14 @@ export interface ISocial {
 
 export interface ITerminalState {
   history: ICommand[];
+  currentCommand: string;
   commands: ICommand[];
   isLoadingData: boolean;
+  isTerminal: boolean;
+}
+
+export interface IMessagePayload {
+  email?: string;
+  name?: string;
+  text?: string;
 }

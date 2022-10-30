@@ -6,7 +6,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { FileService } from '../file/file.service';
-import { S3 } from 'aws-sdk';
 
 @Injectable()
 export class ProjectService {
@@ -16,15 +15,14 @@ export class ProjectService {
     @InjectRepository(ToolEntity)
     private readonly toolRep: Repository<ToolEntity>,
     private readonly fileService: FileService,
-  ) {}
+  ) { }
 
   async create(
     createProjectDto: CreateProjectDto,
     file: Express.Multer.File,
   ): Promise<ProjectEntity> {
-    const project = new ProjectEntity();
     await this.checkNameExists(createProjectDto.name);
-
+    const project = new ProjectEntity();
     return this.save(project, createProjectDto, file);
   }
 
@@ -35,6 +33,7 @@ export class ProjectService {
   async findOne(projectId: number): Promise<ProjectEntity> {
     const project = await this.projectRep.findOne({
       where: { id: projectId },
+      relations: {tools: true}
     });
 
     if (!project) {
@@ -52,25 +51,28 @@ export class ProjectService {
     updateProjectDto: UpdateProjectDto,
     file: Express.Multer.File,
   ): Promise<ProjectEntity> {
-    const project = await this.findOne(projectId);
     await this.checkNameExists(updateProjectDto.name, projectId);
-    if (project.img.length) {
+    const project = await this.findOne(projectId);
+
+    if (project.img) {
       await this.deleteImg(project);
     }
+
     return this.save(project, updateProjectDto, file);
   }
 
   async delete(projectId: number) {
     const project = await this.findOne(projectId);
-    if (project.img.length) {
+    if (project.img) {
       await this.deleteImg(project);
     }
     this.projectRep.delete(projectId);
   }
 
-  deleteImg(project: ProjectEntity): Promise<Error | S3.DeleteObjectOutput> {
-    const imgName = project.img.split('/').at(-1);
-    return this.fileService.deleteS3(imgName);
+  deleteImg(project: ProjectEntity): Promise<void> {
+    const imgUrlArray = project.img.split('/')
+    const imgName = imgUrlArray[imgUrlArray.length - 1];
+    return this.fileService.delete(imgName);
   }
 
   async checkNameExists(
@@ -78,7 +80,7 @@ export class ProjectService {
     projectId?: number,
   ): Promise<HttpException | undefined> {
     const project = await this.projectRep.findOne({
-      where: { name },
+      where: { name: name || '' },
     });
 
     if (project && project.id !== projectId) {
@@ -96,26 +98,28 @@ export class ProjectService {
     dto: CreateProjectDto | UpdateProjectDto,
     file?: Express.Multer.File,
   ): Promise<ProjectEntity> {
-    const tools = await this.toolRep.findBy({
-      id: In(dto.tools),
-    });
-    let s3Data = null;
+    let tools = project.tools || []
+    let imgUrl = project.img || '';
+
+
+    if (dto.tools?.length) {
+      tools = await this.toolRep.findBy({
+        id: In(dto.tools),
+      });
+    }
 
     if (file) {
       try {
-        s3Data = await this.fileService.uploadS3(
-          file.buffer,
-          file.originalname,
-        );
+        imgUrl = await this.fileService.upload(file);
       } catch (err) {
         throw new HttpException(err.messsage, err.status);
       }
     }
-
+    
     const newProject = {
       ...dto,
       tools,
-      img: s3Data ? s3Data.Location : project.img ?? '',
+      img: imgUrl,
     };
 
     Object.assign(project, newProject);

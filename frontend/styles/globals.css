@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Source+Code+Pro&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,9 +6,11 @@
 
 @layer base {
   body {
-    @apply overflow-hidden;
-    @apply bg-dark-gray;
-    @apply text-white;
+    @apply bg-neon dark:bg-dark-gray;
+    @apply xl:bg-no-repeat;
+    @apply xl:bg-cover;
+    @apply bg-center;
+    @apply text-dark-gray dark:text-white;
     @apply font-display;
   }
 }

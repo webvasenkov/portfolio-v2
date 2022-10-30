@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IProject, ITool, ISocial } from 'app/types';
+import { IProject, ITool, ISocial, IMessagePayload } from 'app/types';
 
 export const portfolioApi = createApi({
   reducerPath: 'portfolio',
@@ -14,8 +14,15 @@ export const portfolioApi = createApi({
     getSocials: build.query<{ socials: ISocial[] }, void>({
       query: () => '/socials',
     }),
+    sendMessage: build.mutation({
+      query: (messagePayload: IMessagePayload) => ({
+        url: '/mail/gmail',
+        method: 'POST',
+        body: messagePayload,
+      }),
+    }),
   }),
 });
 
-export const { useGetProjectsQuery, useGetToolsQuery, useGetSocialsQuery } =
+export const { useGetProjectsQuery, useGetToolsQuery, useGetSocialsQuery, useSendMessageMutation } =
   portfolioApi;

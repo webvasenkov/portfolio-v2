@@ -3,16 +3,17 @@ import Text from 'components/text';
 
 function Help() {
   const commnads = [
-    { id: uuidv4(), name: 'help', desc: 'print all commands' },
-    { id: uuidv4(), name: 'clear', desc: 'clear terminal' },
-    { id: uuidv4(), name: 'projects', desc: 'print my projects' },
-    { id: uuidv4(), name: 'tools', desc: 'print my tools' },
-    { id: uuidv4(), name: 'social', desc: 'print my social networks' },
-    { id: uuidv4(), name: 'cv', desc: 'download my CV' },
+    { id: uuidv4(), name: 'help', desc: 'print all commands', withArgs: false, },
+    { id: uuidv4(), name: 'clear', desc: 'clear terminal', withArgs: false, },
+    { id: uuidv4(), name: 'projects', desc: 'print my projects', withArgs: false },
+    { id: uuidv4(), name: 'tools', desc: 'print my tools', withArgs: false },
+    { id: uuidv4(), name: 'social', desc: 'print my social networks', withArgs: false },
+    { id: uuidv4(), name: 'cv', desc: 'download my CV', withArgs: false, },
     {
       id: uuidv4(),
       name: 'message',
       desc: 'send me message to mail\n[-e | --email] - your email address\n[-n | --name] - your name\n[-t | --text] - text of message',
+      withArgs: true,
     },
   ];
 

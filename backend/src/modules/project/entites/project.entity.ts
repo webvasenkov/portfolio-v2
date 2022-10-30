@@ -26,5 +26,5 @@ export class ProjectEntity {
 
   @ManyToMany(() => ToolEntity)
   @JoinTable()
-  tools: string;
+  tools: ToolEntity[];
 }

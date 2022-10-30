@@ -9,5 +9,5 @@ export const appGuard = {
 
 export const fileValidators = [
   new FileTypeValidator({ fileType: /jpeg|jpg|png/ }),
-  new MaxFileSizeValidator({ maxSize: 500000 }),
+  new MaxFileSizeValidator({ maxSize: 2000000 }),
 ];

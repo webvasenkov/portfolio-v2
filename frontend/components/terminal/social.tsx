@@ -3,6 +3,7 @@ import { useGetSocialsQuery } from 'features/portfolio/portfolioApi';
 import { setIsLoadingData } from 'features/terminal/terminalSlice';
 import { useAppDispatch } from 'app/hooks';
 import { ISocial } from 'app/types';
+import Preloader from 'components/preloader';
 
 function Socials() {
   const dispatch = useAppDispatch();
@@ -12,18 +13,18 @@ function Socials() {
     if (data) {
       dispatch(setIsLoadingData(true));
     }
-  }, [data]);
+  }, [dispatch, data]);
 
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Preloader/>}
       {isSuccess && (
         <ul>
           {data.socials.map((social: ISocial) => {
             return (
               <li key={social.id}>
                 <a
-                  className='border-b border-white/20 ease-in-out hover:border-white'
+                  className='border-b border-white/20 ease-in-out hover:border-white transition'
                   href={social.link}
                   target='blank'
                   rel='noreferrer'

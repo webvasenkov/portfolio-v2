@@ -1,54 +1,35 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { S3 } from 'aws-sdk';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import * as Minio from 'minio';
 
 @Injectable()
 export class FileService {
-  uploadS3(
-    fileBuffer: Buffer,
-    name: string,
-  ): Promise<Error | S3.ManagedUpload.SendData> {
-    const s3 = this.getS3();
-    const params = {
-      Bucket: process.env.AWS_BUCKET,
-      Key: name,
-      Body: fileBuffer,
-    };
+  private bucketName = process.env.MINIO_BUCKET_NAME;
+  private minioClient = new Minio.Client({
+    accessKey: process.env.MINIO_ROOT_USER,
+    secretKey: process.env.MINIO_ROOT_PASSWORD,
+    endPoint: 'storage.webvasenkov.com',
+    useSSL: true,
+  });
 
-    return new Promise((res, rej) => {
-      s3.upload(params, (err: Error, data: S3.ManagedUpload.SendData) => {
-        if (err) {
-          Logger.error(err);
-          rej(err.message);
-        }
+  async upload(
+    file: Express.Multer.File,
+  ): Promise<string> {
+    const objectName = file.originalname
 
-        res(data);
-      });
-    });
+    try {
+      await this.minioClient.putObject(
+        this.bucketName,
+        objectName,
+        file.buffer
+      );
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    return `${process.env.MINIO_HOST}/${this.bucketName}/${objectName}`
   }
 
-  deleteS3(name: string): Promise<Error | S3.DeleteObjectOutput> {
-    const s3 = this.getS3();
-    const params = {
-      Bucket: process.env.AWS_BUCKET,
-      Key: name,
-    };
-
-    return new Promise((res, rej) => {
-      s3.deleteObject(params, (err: Error, data: S3.DeleteObjectOutput) => {
-        if (err) {
-          Logger.error(err);
-          rej(err.message);
-        }
-
-        res(data);
-      });
-    });
-  }
-
-  getS3(): S3 {
-    return new S3({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    });
+  delete(name: string): Promise<void> {
+    return this.minioClient.removeObject(this.bucketName, name);
   }
 }

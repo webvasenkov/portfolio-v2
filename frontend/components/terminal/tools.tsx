@@ -3,6 +3,7 @@ import { useGetToolsQuery } from 'features/portfolio/portfolioApi';
 import { setIsLoadingData } from 'features/terminal/terminalSlice';
 import { useAppDispatch } from 'app/hooks';
 import { ITool } from 'app/types';
+import Preloader from 'components/preloader';
 
 function Tools() {
   const dispatch = useAppDispatch();
@@ -12,11 +13,11 @@ function Tools() {
     if (data) {
       dispatch(setIsLoadingData(true));
     }
-  }, [data]);
+  }, [dispatch, data]);
 
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Preloader/>}
       {isSuccess && (
         <ul>
           {data.tools.map((tool: ITool) => {

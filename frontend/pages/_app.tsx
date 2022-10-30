@@ -3,14 +3,16 @@ import type { AppProps } from 'next/app';
 import Layout from 'components/layout';
 import { Provider } from 'react-redux';
 import { store } from 'app/store';
+import { ThemeProvider } from 'next-themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    // @ts-ignore
     <Provider store={store}>
+      <ThemeProvider enableSystem={true} attribute='class'>
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      </ThemeProvider>
     </Provider>
   );
 }

@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'dark-gray': '#0F0F0F',
-        pure: '#DF5DFF',
-        orange: '#FFCC4D',
+        'dark-gray': '#202020',
+        red: '#DF5DFF',
+        blue: '#4D8AFF',
       },
       rotate: {
         24: '24deg',
@@ -18,28 +18,43 @@ module.exports = {
         xs: '450px',
       },
       backgroundImage: {
-        'pure-neon': "url('/images/pure-neon.png')",
-        'orange-neon': "url('/images/orange-neon.png')",
+        neon: "url('/images/neon.png')",
       },
       fontFamily: {
         display: 'Poppins, sans-serif',
         terminal: 'Source Code Pro, monospace',
       },
       keyframes: {
-        flicker: {
-          '0%': { opacity: '1' },
-          '50%': { opacity: '0' },
-          '100%': { opacity: '1' },
+        gradient: {
+          '0%': {
+            'background-position': '0% 50%',
+          },
+          '50%': {
+            'background-position': '100% 50%',
+          },
+          '100%': {
+            'background-position': '0% 50%',
+          },
         },
       },
       animation: {
-        flicker: 'flicker 2s infinite',
+        'spin-slow': 'spin 8s linear infinite',
+        gradient: 'gradient 8s ease infinite',
       },
       screens: { '3xl': '2100px' },
     },
     container: {
       center: true,
+      padding: {
+        DEFAULT: '1.25rem',
+        sm: '2rem',
+        md: '3rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
     },
   },
+  darkMode: 'class',
   plugins: [],
 };

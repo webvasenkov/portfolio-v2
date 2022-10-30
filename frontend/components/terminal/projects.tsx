@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import ProjectsIcon from 'public/icons/projects.svg';
 import { useGetProjectsQuery } from 'features/portfolio/portfolioApi';
 import { IProject } from 'app/types';
 import { useAppDispatch } from 'app/hooks';
 import { setIsLoadingData } from 'features/terminal/terminalSlice';
+import ProjectsIcon from 'public/icons/projects.svg';
+import Preloader from 'components/preloader';
 
 function Projects() {
   const dispatch = useAppDispatch();
@@ -13,12 +14,12 @@ function Projects() {
     if (data) {
       dispatch(setIsLoadingData(true));
     }
-  }, [data]);
+  }, [dispatch, data]);
 
   return (
     <div>
       <ProjectsIcon className='mx-auto mb-4' />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Preloader />}
       {isSuccess && (
         <div>
           <div className='grid grid-cols-3 border-b border-white/20'>
@@ -29,7 +30,7 @@ function Projects() {
           {data.projects.map((proj: IProject) => {
             return (
               <a
-                className='grid grid-cols-3 border-b border-white/20 ease-in-out hover:border-white'
+                className='grid grid-cols-3 border-b border-white/20 hover:border-white transition'
                 key={proj.id}
                 href={proj.link}
                 target='blank'

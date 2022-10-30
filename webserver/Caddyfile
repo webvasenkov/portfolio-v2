@@ -1,9 +1,44 @@
-localhost {
-    reverse_proxy web:3000
+webvasenkov.com {
+  reverse_proxy frontend:3000
+  header {
+    Connection keep-alive
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+    X-Download-Options noopen
+    X-Content-Type-Options nosniff
+    X-Frame-Options SAMEORIGIN
+  }
 }
 
-api.localhost {
-    reverse_proxy api:3001
+api.webvasenkov.com {
+  reverse_proxy backend:3001
+  header {
+    Connection keep-alive
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+    X-Download-Options noopen
+    X-Content-Type-Options nosniff
+    X-Frame-Options SAMEORIGIN
+  }
 }
 
+storage.webvasenkov.com {
+  reverse_proxy storage:9000
+  header {
+    Connection keep-alive
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+    X-Download-Options noopen
+    X-Content-Type-Options nosniff
+    X-Frame-Options SAMEORIGIN
+  }
+}
+
+storage-console.webvasenkov.com {
+  reverse_proxy storage:9001
+  header {
+    Connection keep-alive
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+    X-Download-Options noopen
+    X-Content-Type-Options nosniff
+    X-Frame-Options SAMEORIGIN
+  }
+}
 

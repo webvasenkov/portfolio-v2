@@ -1,39 +1,32 @@
 version: '3.8'
 services:
-  api:
+  backend:
     build: ./backend
-    container_name: api
+    container_name: backend
     env_file: ./backend/.env
     volumes:
       - ./backend:/app
     ports:
       - '3001:3001'
-  web:
+  frontend:
     build: ./frontend
-    container_name: web
+    container_name: frontend
     env_file: ./frontend/.env
     volumes:
       - ./frontend:/app
     ports:
       - '3000:3000'
+    depends_on:
+      - 'db'
   db:
     image: 'postgres:alpine3.16'
-    container_name: 'db'
+    container_name: db
     env_file: ./backend/.env
     volumes:
       - db_data:/var/lib/postgresql/data
-  # webserver:
-  #   image: caddy:2.5.2-alpine
-  #   container_name: 'webserver'
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   volumes:
-  #     - ./webserver/Caddyfile:/etc/caddy/Caddyfile
-  #     - caddy_data:/data
-  #     - caddy_config:/config
+    ports:
+      - '5433:5432'
 
 volumes:
   db_data:
-  # caddy_data:
-  # caddy_config:
+

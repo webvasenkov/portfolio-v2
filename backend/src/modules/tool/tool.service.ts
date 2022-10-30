@@ -39,8 +39,8 @@ export class ToolService {
     toolId: number,
     updateToolDto: UpdateToolDto,
   ): Promise<ToolEntity> {
-    const tool = await this.findOne(toolId);
     await this.checkNameExists(updateToolDto.name, toolId);
+    const tool = await this.findOne(toolId);
     return this.save(tool, updateToolDto);
   }
 
