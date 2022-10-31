@@ -83,7 +83,7 @@ function Terminal() {
         </span>
         command in the terminal
       </h2>
-      <div className='relative mt-8 mb-32 text-white font-terminal mx-auto w-min bg-[#202020]/50 px-8 py-6 rounded-md border border-white/10'>
+      <div className='relative mt-8 mb-32 text-white font-terminal mx-auto w-min bg-[#202020]/80 dark:bg-[#202020]/50 px-8 py-6 rounded-md border border-white/10'>
         <div
           className='overflow-y-auto h-[642px] w-[1000px] 2xl:h-[742px] 2xl:w-[1100px] overflow-hidden'
           ref={terminalRef}
