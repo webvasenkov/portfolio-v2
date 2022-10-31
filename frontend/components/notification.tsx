@@ -32,7 +32,7 @@ function Notification({ message, reset }: Props) {
   return (
     <div
       className={cn(
-        'bg-white dark:bg-[#202020] border-md max-w-[300px] w-full p-4 rounded-xl fixed top-16 right-4 xl:right-16 flex gap-4 translate-x-[200%] transition',
+        'bg-white shadow-xl dark:bg-[#202020] border-md max-w-[300px] w-full p-4 rounded-xl fixed top-16 right-4 xl:right-16 flex gap-4 translate-x-[200%] transition',
         { 'opacity-0': !isVisible, 'translate-x-0': isAnimated }
       )}
     >
