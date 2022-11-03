@@ -1,4 +1,4 @@
-webvasenkov.com {
+www.webvasenkov.com, webvasenkov.com {
   reverse_proxy frontend:3000
   header {
     Connection keep-alive
