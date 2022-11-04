@@ -21,7 +21,7 @@ function Home() {
         <span className='hidden sm:block absolute -translate-x-full top-1/2 -translate-y-1/2 left-14 scale-75 xl:scale-100'>
           <RockIcon />
         </span>
-        Hi, my name is Denis & I’m frontend enthusiast
+        Hi, my name is Denis & I’m web enthusiast
       </h1>
       {isTerminal ? <Terminal /> : <Graphic />}
     </>
