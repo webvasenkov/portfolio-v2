@@ -33,7 +33,7 @@ function Notification({ message, reset }: Props) {
     <div
       className={cn(
         'bg-white shadow-xl dark:bg-[#202020] border-md max-w-[300px] w-full p-4 rounded-xl fixed top-16 right-4 xl:right-16 flex gap-4 translate-x-[200%] transition',
-        { 'translate-x-[200%]': !isVisible, 'translate-x-0': isAnimated }
+        { 'hidden': !isVisible, 'translate-x-0': isAnimated }
       )}
     >
       <BellIcon className='shrink-0 fill-dark-gray dark:fill-white' />
