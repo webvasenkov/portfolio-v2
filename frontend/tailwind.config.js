@@ -18,7 +18,7 @@ module.exports = {
         xs: '450px',
       },
       backgroundImage: {
-        neon: "url('/images/neon.png')",
+        neon: "url('/images/noise.png'), url('/images/neon.png')"
       },
       fontFamily: {
         display: 'Poppins, sans-serif',

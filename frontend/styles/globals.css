@@ -6,9 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-neon dark:bg-dark-gray;
-    @apply xl:bg-no-repeat;
-    @apply xl:bg-cover;
+    @apply bg-neon bg-[length:200px_200px_,_cover] dark:bg-dark-gray;
     @apply bg-center;
     @apply text-dark-gray dark:text-white;
     @apply font-display;
