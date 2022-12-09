@@ -10,5 +10,7 @@
     @apply bg-center;
     @apply text-dark-gray dark:text-white;
     @apply font-display;
+    min-height: calc(100vh - 40px);
+    transition: all 0.2s ease-in-out;
   }
 }

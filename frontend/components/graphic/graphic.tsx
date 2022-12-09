@@ -21,7 +21,7 @@ function Graphic() {
 
   if (isLoadingProjects || isLoadingTools) {
     return (
-      <div className='flex justify-center items-center mt-32'>
+      <div className='absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]'>
         <Preloader isLarge={true} />
       </div>
     );

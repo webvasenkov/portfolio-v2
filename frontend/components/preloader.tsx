@@ -7,10 +7,10 @@ type Props = {
 function Preloader({ isLarge }: Props) {
   return (
     <span
-      className={cn(
-        'block w-3 h-3 rounded-full border border-white/60 border-t-white animate-spin',
-        { 'w-16 h-16': isLarge }
-      )}></span>
+      className={cn('block w-3 h-3 rounded-full border animate-spin', {
+        'w-16 h-16 dark:border-white/60 dark:border-t-white border-dark-gray/40 border-t-dark-gray':
+          isLarge,
+      })}></span>
   );
 }
 
