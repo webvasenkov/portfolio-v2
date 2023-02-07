@@ -27,7 +27,7 @@ function MailButton() {
   return (
     <button
       className={cn(
-        'cursor-pointer fixed bottom-10 right-20 bg-black/40 w-max p-2 rounded-md transition opacity-1 hover:bg-black/60',
+        'cursor-pointer fixed bottom-10 right-10 xl:right-20 bg-black/40 w-max p-2 rounded-md transition opacity-1 hover:bg-black/60',
         {
           'invisible opacity-0':
             messageInView || isLoadingProjects || isLoadingTools,
