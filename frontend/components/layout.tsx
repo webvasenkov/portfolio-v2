@@ -1,4 +1,5 @@
 import Header from './header';
+import MailButton from './mailButton';
 
 type Props = {
   children: JSX.Element;
@@ -8,6 +9,7 @@ function Layout({ children }: Props) {
     <>
       <Header />
       {children}
+      <MailButton />
     </>
   );
 }

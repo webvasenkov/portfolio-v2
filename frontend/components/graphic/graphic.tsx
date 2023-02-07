@@ -28,7 +28,7 @@ function Graphic() {
   }
 
   return (
-    <div className='container my-32 flex flex-col space-y-32'>
+    <div className='container flex py-16 flex-col'>
       <Projects
         isError={isErrorProjects}
         isSuccess={isSuccessProjects}

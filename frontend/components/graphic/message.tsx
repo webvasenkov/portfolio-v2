@@ -4,7 +4,10 @@ import { useSendMessageMutation } from 'features/portfolio/portfolioApi';
 import { IMessagePayload } from 'app/types';
 import Notification from 'components/notification';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import * as yup from 'yup';
+import { useAppDispatch } from 'app/hooks';
+import { setMessageInView } from 'features/general/generalSlice';
 
 type InputErrorProps = {
   errorMessage: string | undefined;
@@ -26,8 +29,10 @@ function InputError({ errorMessage }: InputErrorProps) {
 }
 
 function Message() {
+  const dispatch = useAppDispatch();
   const [isSent, setIsSent] = useState(false);
   const [sendMessage, { isLoading, isSuccess }] = useSendMessageMutation();
+  const [ref, inView] = useInView();
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -50,8 +55,15 @@ function Message() {
     setIsSent(false);
   }
 
+  useEffect(() => {
+    dispatch(setMessageInView(inView));
+  }, [inView]);
+
   return (
-    <div className='flex flex-col xl:flex-row gap-16 xl:gap-32 justify-between items-center'>
+    <div
+      id='message'
+      className='flex py-16 flex-col xl:flex-row gap-16 xl:gap-32 justify-between items-center'
+      ref={ref}>
       <h2 className='text-3xl xl:text-7xl font-bold w-[100%] text-center xl:text-left xl:w-[30%]'>
         Say Hi
       </h2>

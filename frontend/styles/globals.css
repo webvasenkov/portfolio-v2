@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-neon bg-[length:200px_200px_,_cover] dark:bg-dark-gray;
     @apply bg-center;

@@ -14,7 +14,7 @@ export const terminalSlice = createSlice({
   initialState,
   reducers: {
     setIsTerminal(state, action: PayloadAction<boolean>) {
-      state.isTerminal = action.payload
+      state.isTerminal = action.payload;
     },
     setIsLoadingData(state, action: PayloadAction<boolean>) {
       state.isLoadingData = action.payload;
@@ -35,5 +35,9 @@ export const terminalSlice = createSlice({
   },
 });
 
-export const { setIsLoadingData, addCommand, setCurrentCommand, setIsTerminal } =
-  terminalSlice.actions;
+export const {
+  setIsLoadingData,
+  addCommand,
+  setCurrentCommand,
+  setIsTerminal,
+} = terminalSlice.actions;

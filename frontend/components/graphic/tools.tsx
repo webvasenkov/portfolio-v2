@@ -9,7 +9,7 @@ type Props = {
 function Tools({ isError, isSuccess, data }: Props) {
   return (
     <div>
-      <div className='flex flex-col-reverse xl:flex-row gap-16 xl:gap-32 items-center justify-between'>
+      <div className='flex py-16 flex-col-reverse xl:flex-row gap-16 xl:gap-32 items-center justify-between'>
         <ul className='relative flex justify-center xl:justify-start w-[100%] xl:w-[30%] gap-8 flex-wrap'>
           {isSuccess &&
             data?.tools.map((tool: ITool) => (

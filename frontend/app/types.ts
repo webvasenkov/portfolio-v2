@@ -31,6 +31,10 @@ export interface ITerminalState {
   isTerminal: boolean;
 }
 
+export interface IGeneralState {
+  messageInView: boolean,
+}
+
 export interface IMessagePayload {
   email?: string;
   name?: string;

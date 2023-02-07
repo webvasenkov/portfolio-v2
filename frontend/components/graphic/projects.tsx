@@ -10,7 +10,7 @@ type Props = {
 function Projects({ isError, isSuccess, data }: Props) {
   return (
     <div>
-      <div className='flex gap-16 xl:gap-32 items-center justify-between flex-col xl:flex-row'>
+      <div className='flex py-16 gap-16 xl:gap-32 items-center justify-between flex-col xl:flex-row'>
         <h2 className='text-3xl text-center xl:text-left xl:text-7xl font-bold w-[100%] xl:w-[30%]'>Projects</h2>
         <div className='relative flex flex-col gap-8 xl:gap-0 w-[100%] xl:w-[70%]'>
           {isSuccess &&
