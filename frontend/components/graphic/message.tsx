@@ -6,8 +6,10 @@ import Notification from 'components/notification';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import * as yup from 'yup';
-import { useAppDispatch } from 'app/hooks';
+import { useAnimationInView, useAppDispatch } from 'app/hooks';
 import { setMessageInView } from 'features/general/generalSlice';
+import { motion } from 'framer-motion';
+import { showVariants } from 'app/animations';
 
 type InputErrorProps = {
   errorMessage: string | undefined;
@@ -32,7 +34,7 @@ function Message() {
   const dispatch = useAppDispatch();
   const [isSent, setIsSent] = useState(false);
   const [sendMessage, { isLoading, isSuccess }] = useSendMessageMutation();
-  const [ref, inView] = useInView();
+  const { ref, inView, controls } = useAnimationInView();
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -60,9 +62,12 @@ function Message() {
   }, [inView]);
 
   return (
-    <div
-      id='message'
+    <motion.div
       className='flex py-16 flex-col xl:flex-row gap-16 xl:gap-32 justify-between items-center'
+      variants={showVariants}
+      initial='hidden'
+      animate={controls}
+      id='message'
       ref={ref}>
       <h2 className='text-3xl xl:text-7xl font-bold w-[100%] text-center xl:text-left xl:w-[30%]'>
         Say Hi
@@ -111,7 +116,7 @@ function Message() {
       {isSent && (
         <Notification message='The message has been sent' reset={isSent} />
       )}
-    </div>
+    </motion.div>
   );
 }
 

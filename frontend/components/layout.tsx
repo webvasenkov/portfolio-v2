@@ -1,5 +1,5 @@
 import Header from './header';
-import MailButton from './mailButton';
+import NavigationLink from './navigationLink';
 
 type Props = {
   children: JSX.Element;
@@ -9,7 +9,7 @@ function Layout({ children }: Props) {
     <>
       <Header />
       {children}
-      <MailButton />
+      <NavigationLink />
     </>
   );
 }

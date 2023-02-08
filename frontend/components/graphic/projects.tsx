@@ -1,5 +1,8 @@
 import { IProject } from 'app/types';
 import Image from 'next/image';
+import { showVariants } from 'app/animations';
+import { motion } from 'framer-motion';
+import { useAnimationInView } from 'app/hooks';
 
 type Props = {
   isError: boolean;
@@ -8,10 +11,18 @@ type Props = {
 };
 
 function Projects({ isError, isSuccess, data }: Props) {
+  const { ref, controls } = useAnimationInView();
+
   return (
-    <div>
+    <motion.div
+      ref={ref}
+      variants={showVariants}
+      initial='hidden'
+      animate={controls}>
       <div className='flex py-16 gap-16 xl:gap-32 items-center justify-between flex-col xl:flex-row'>
-        <h2 className='text-3xl text-center xl:text-left xl:text-7xl font-bold w-[100%] xl:w-[30%]'>Projects</h2>
+        <h2 className='text-3xl text-center xl:text-left xl:text-7xl font-bold w-[100%] xl:w-[30%]'>
+          Projects
+        </h2>
         <div className='relative flex flex-col gap-8 xl:gap-0 w-[100%] xl:w-[70%]'>
           {isSuccess &&
             data?.projects.map((proj: IProject, idx: number) => (
@@ -20,10 +31,11 @@ function Projects({ isError, isSuccess, data }: Props) {
                 href={proj.link}
                 key={proj.id}
                 target='_blank'
-                rel='noreferrer'
-              >
+                rel='noreferrer'>
                 <div>
-                  <h3 className='text-xl xl:text-2xl font-bold text-white xl:text-dark-gray dark:text-white group-hover:text-white transition'>{proj.name}</h3>
+                  <h3 className='text-xl xl:text-2xl font-bold text-white xl:text-dark-gray dark:text-white group-hover:text-white transition'>
+                    {proj.name}
+                  </h3>
                   <p className='text-base xl:text-xl font-light text-white/60 xl:text-dark-gray/60 dark:text-white/60 group-hover:text-white/60'>
                     {proj.desc}
                   </p>
@@ -37,13 +49,15 @@ function Projects({ isError, isSuccess, data }: Props) {
                     />
                   </div>
                 </div>
-                <span className='dark:text-white text-white xl:text-dark-gray group-hover:text-white transition'>0{idx + 1}</span>
+                <span className='dark:text-white text-white xl:text-dark-gray group-hover:text-white transition'>
+                  0{idx + 1}
+                </span>
               </a>
             ))}
         </div>
         {isError && <p>data is broken :(</p>}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
