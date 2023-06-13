@@ -4,12 +4,11 @@ import { useSendMessageMutation } from 'features/portfolio/portfolioApi';
 import { IMessagePayload } from 'app/types';
 import Notification from 'components/notification';
 import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import * as yup from 'yup';
 import { useAnimationInView, useAppDispatch } from 'app/hooks';
 import { setMessageInView } from 'features/general/generalSlice';
 import { motion } from 'framer-motion';
 import { showVariants } from 'app/animations';
+import * as yup from 'yup';
 
 type InputErrorProps = {
   errorMessage: string | undefined;
@@ -53,8 +52,8 @@ function Message() {
 
   function onSubmit(messagePayload: IMessagePayload) {
     sendMessage(messagePayload);
-    reset();
     setIsSent(false);
+    reset();
   }
 
   useEffect(() => {
