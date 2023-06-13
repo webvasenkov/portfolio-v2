@@ -19,7 +19,7 @@ function Tools({ isError, isSuccess, data }: Props) {
       initial='hidden'
       animate={controls}>
       <div className='flex py-16 flex-col-reverse xl:flex-row gap-16 xl:gap-32 items-center justify-between'>
-        <ul className='relative flex justify-center xl:justify-start w-[100%] xl:w-[70%] gap-8 flex-wrap'>
+        <ul className='relative flex justify-center xl:justify-start w-[100%] xl:w-[30%] gap-8 flex-wrap'>
           {isSuccess &&
             data?.tools.map((tool: ITool) => (
               <li key={tool.id}>
@@ -33,7 +33,7 @@ function Tools({ isError, isSuccess, data }: Props) {
             ))}
         </ul>
         {isError && <p>data is broken :(</p>}
-        <h2 className='text-3xl text-center xl:text-right xl:text-7xl font-bold w-[100%] xl:w-[30%]'>
+        <h2 className='text-3xl text-center xl:text-right xl:text-7xl font-bold w-[100%] xl:w-[70%]'>
           Tools
         </h2>
       </div>
