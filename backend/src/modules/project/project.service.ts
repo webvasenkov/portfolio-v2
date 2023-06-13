@@ -15,7 +15,7 @@ export class ProjectService {
     @InjectRepository(ToolEntity)
     private readonly toolRep: Repository<ToolEntity>,
     private readonly fileService: FileService,
-  ) { }
+  ) {}
 
   async create(
     createProjectDto: CreateProjectDto,
@@ -27,13 +27,16 @@ export class ProjectService {
   }
 
   findAll(): Promise<ProjectEntity[]> {
-    return this.projectRep.find({ relations: ['tools'] });
+    return this.projectRep.find({
+      relations: ['tools'],
+      order: { id: 'DESC' },
+    });
   }
 
   async findOne(projectId: number): Promise<ProjectEntity> {
     const project = await this.projectRep.findOne({
       where: { id: projectId },
-      relations: {tools: true}
+      relations: { tools: true },
     });
 
     if (!project) {
@@ -70,7 +73,7 @@ export class ProjectService {
   }
 
   deleteImg(project: ProjectEntity): Promise<void> {
-    const imgUrlArray = project.img.split('/')
+    const imgUrlArray = project.img.split('/');
     const imgName = imgUrlArray[imgUrlArray.length - 1];
     return this.fileService.delete(imgName);
   }
@@ -98,9 +101,8 @@ export class ProjectService {
     dto: CreateProjectDto | UpdateProjectDto,
     file?: Express.Multer.File,
   ): Promise<ProjectEntity> {
-    let tools = project.tools || []
+    let tools = project.tools || [];
     let imgUrl = project.img || '';
-
 
     if (dto.tools?.length) {
       tools = await this.toolRep.findBy({
@@ -115,7 +117,7 @@ export class ProjectService {
         throw new HttpException(err.messsage, err.status);
       }
     }
-    
+
     const newProject = {
       ...dto,
       tools,
